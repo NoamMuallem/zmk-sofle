@@ -1,28 +1,28 @@
 ---
 include:
-  # LEFT half — Studio enabled and unlocked
+  # LEFT half — ZMK Studio over WebUSB, unlocked by default
   - board: eyelash_sofle_left
     shield: nice_view
-    snippet: studio-rpc-usb-uart
+    snippet: studio-rpc-usb
     cmake-args: >-
       -DCONFIG_ZMK_STUDIO=y
       -DCONFIG_ZMK_STUDIO_LOCKING=n
       -DCONFIG_ZMK_USB=y
       -DCONFIG_USB_DEVICE_STACK=y
-    artifact-name: eyelash_sofle_left_studio
+    artifact-name: eyelash_sofle_left_studio_webusb
 
-  # RIGHT half — also Studio enabled, so you can plug in either side
+  # RIGHT half — also Studio over WebUSB (plug either side via USB)
   - board: eyelash_sofle_right
     shield: nice_view
-    snippet: studio-rpc-usb-uart
+    snippet: studio-rpc-usb
     cmake-args: >-
       -DCONFIG_ZMK_STUDIO=y
       -DCONFIG_ZMK_STUDIO_LOCKING=n
       -DCONFIG_ZMK_USB=y
       -DCONFIG_USB_DEVICE_STACK=y
-    artifact-name: eyelash_sofle_right_studio
+    artifact-name: eyelash_sofle_right_studio_webusb
 
-  # Optional: Settings reset image (for wiping config if needed)
+  # Optional: settings reset image
   - board: nice_nano_v2
     shield: settings_reset
     artifact-name: settings_reset
