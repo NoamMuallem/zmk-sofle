@@ -1,9 +1,31 @@
-// Sofle Eyelash keymap
-// Includes custom behaviors (hold-tap) and combos
+// Sofle Eyelash — full keymap with:
+//  - Long-press on GRAVE (`) -> Esc (tap-preferred)
+//  - Combo: Tab + GRAVE -> Esc  (see combos.dtsi)
+//
+// NOTE: If your board's physical matrix order differs, you may adjust
+//       bindings placement, but keep the behavior tokens unchanged.
 
+#include <behaviors.dtsi>          // provides &kp, &lt, &mt, etc.
 #include <dt-bindings/zmk/keys.h>
-#include "behaviors.dtsi"
 #include "combos.dtsi"
+
+/* --- Local long-press (hold-tap) helper ---
+ * Use:   &lp <HOLD_key> <TAP_key>
+ * Ex.:   &lp ESC GRAVE       -> tap ` , hold Esc
+ */
+ / {
+    behaviors {
+        lp: long_press_to_key {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LP";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <175>;
+            bindings = <&kp>, <&kp>;
+        };
+    };
+};
 
 #define L_BASE   0
 #define L_FN     1
@@ -13,51 +35,55 @@
     keymap {
         compatible = "zmk,keymap";
 
-        /* ---------- LAYER 0 (default) ---------- */
+        /* ---------------- LAYER 0 (Base) ---------------- */
         default_layer {
             bindings = <
-                &lp ESC GRAVE   &kp N1     &kp N2     &kp N3     &kp N4     &kp N5
-                &kp TAB         &kp Q      &kp W      &kp E      &kp R      &kp T
-                &kp CAPS        &kp A      &kp S      &kp D      &kp F      &kp G
-                &kp LSHFT       &kp Z      &kp X      &kp C      &kp V      &kp B
+                /* Left half — row 1 */  &lp ESC GRAVE  &kp N1   &kp N2   &kp N3   &kp N4   &kp N5
+                /* Left half — row 2 */  &kp TAB        &kp Q    &kp W    &kp E    &kp R    &kp T
+                /* Left half — row 3 */  &kp CAPS       &kp A    &kp S    &kp D    &kp F    &kp G
+                /* Left half — row 4 */  &kp LSHFT      &kp Z    &kp X    &kp C    &kp V    &kp B
 
-                &kp N6     &kp N7     &kp N8     &kp N9     &kp N0     &kp MINUS
-                &kp Y      &kp U      &kp I      &kp O      &kp P      &kp EQUAL
-                &kp H      &kp J      &kp K      &kp L      &kp SEMI   &kp LBKT
-                &kp N      &kp M      &kp COMMA  &kp DOT    &kp SLASH  &kp RBKT
+                /* Right half — row 1 */ &kp N6   &kp N7   &kp N8   &kp N9   &kp N0   &kp MINUS
+                /* Right half — row 2 */ &kp Y    &kp U    &kp I    &kp O    &kp P    &kp EQUAL
+                /* Right half — row 3 */ &kp H    &kp J    &kp K    &kp L    &kp SEMI &kp LBKT
+                /* Right half — row 4 */ &kp N    &kp M    &kp COMMA &kp DOT &kp SLASH &kp RBKT
 
-                &kp LCTRL  &kp LALT   &kp LGUI   &kp ENTER
-                &kp ENTER  &kp BSPC   &kp SPACE  &none
+                /* Left thumbs */        &kp LCTRL  &kp LALT  &kp LGUI  &kp ENTER
+                /* Right thumbs */       &kp ENTER  &kp BSPC  &kp SPACE &none
 
-                &kp UP
-                &kp LEFT   &kp ENTER  &kp RIGHT
-                &kp DOWN
+                /* Center cluster (arrows w/ Return in middle) */
+                                          &kp UP
+                                &kp LEFT  &kp ENTER  &kp RIGHT
+                                          &kp DOWN
             >;
+
+            // Optional: make SPACE a layer-tap (Fn when held)
+            // To enable, replace the SPACE above with:  &lt L_FN SPACE
         };
 
-        /* ---------- LAYER 1 (FN / NAV / F-KEYS) ---------- */
+        /* --------------- LAYER 1 (FN / Nav) --------------- */
         layer1 {
             bindings = <
-                &kp F1   &kp F2   &kp F3   &kp F4   &kp F5   &kp F6
-                &none    &none    &none    &none    &none    &none
-                &none    &none    &none    &none    &none    &none
-                &none    &none    &none    &none    &none    &none
+                /* Left */  &kp F1  &kp F2  &kp F3  &kp F4  &kp F5  &kp F6
+                           &none    &none   &none   &none   &none   &none
+                           &none    &none   &none   &none   &none   &none
+                           &none    &none   &none   &none   &none   &none
 
-                &kp F7   &kp F8   &kp F9   &kp F10  &kp F11  &kp F12
-                &kp PG_UP &kp HOME &kp UP   &kp END  &kp BSPC &kp MINUS
-                &kp PG_DN &kp LEFT &kp DOWN &kp RIGHT &none   &kp EQUAL
-                &none     &none    &none    &none     &kp LBKT &kp RBKT
+                /* Right */ &kp F7  &kp F8  &kp F9  &kp F10 &kp F11 &kp F12
+                           &kp PG_UP &kp HOME &kp UP  &kp END  &kp BSPC &kp MINUS
+                           &kp PG_DN &kp LEFT &kp DOWN &kp RIGHT &none   &kp EQUAL
+                           &none     &none    &none    &none     &kp LBKT &kp RBKT
 
-                &kp ESC   &none    &none    &none
-                &none     &none    &none    &none
+                /* Thumbs */ &kp ESC &none &none &none
+                            &none   &none &none &none
 
-                &kp UP
-                &kp LEFT  &kp ENTER &kp RIGHT
-                &kp DOWN
+                /* Center */  &kp UP
+                            &kp LEFT &kp ENTER &kp RIGHT
+                            &kp DOWN
             >;
         };
 
-        /* ---------- LAYER 2 (EXTRA) ---------- */
+        /* ---------------- LAYER 2 (Extra) ---------------- */
         layer2 {
             bindings = <
                 &none &none &none &none &none &none
@@ -74,7 +100,7 @@
                 &none &none &none &none
 
                 &none
-                &none  &none &none
+                &none &none &none
                 &none
             >;
         };

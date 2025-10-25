@@ -1,4 +1,11 @@
-// Two-keys-at-once (combos)
+// Combos: press two keys together to emit another.
+//
+// IMPORTANT: key-positions MUST be integers that match your matrix order
+// (left→right, top→bottom of Layer 0).
+// Below I used a *sane default* that often matches Sofle Eyelash:
+//   GRAVE (`) at position 0, TAB at position 6
+// If your combo doesn’t fire, just swap these integers to your actual indices.
+
 #include <dt-bindings/zmk/keys.h>
 
 / {
@@ -6,12 +13,9 @@
         compatible = "zmk,combos";
         combo-term-ms = <35>;
 
-        /* TAB + GRAVE -> ESC  (base layer)
-         * IMPORTANT: positions are matrix positions (NOT keycodes).
-         * Replace <TAB_POS GRAVE_POS> with your actual numbers (see Step 3).
-         */
+        // TAB + `  =>  ESC   (base layer only)
         esc_from_tab_grave {
-            key-positions = <6 0>;
+            key-positions = < 6 0 >;   // <TAB_POS GRAVE_POS>
             bindings = <&kp ESC>;
             layers = <0>;
             timeout-ms = <35>;
