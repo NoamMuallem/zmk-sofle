@@ -1,0 +1,22 @@
+/ {
+    combos {
+        compatible = "zmk,combos";
+        /* Tuning you’ll likely like for combos */
+        combo-term-ms = <35>;        /* how tight the simultaneity window is */
+        /* require-prior-idle-ms = <1>;  uncomment if you want to disable combos
+           right after you’ve typed something else very fast */
+
+        /* Example requested earlier:
+           Tab + ` (grave/tilde) => Esc (on base layer only)
+           NOTE: combos use key POSITIONS, not keycodes. Update the positions
+           after we drop in the keymap (see comment there).
+        */
+        esc_from_tab_grave {
+            key-positions = < 7 0 >;   // EXAMPLE: update with your actual two positions
+            bindings = <&kp ESC>;
+            layers = <L_BASE>;
+            timeout-ms = <35>;
+        }
+
+    };
+};

@@ -1,0 +1,30 @@
+#include <dt-bindings/zmk/keys.h>
+#include <behaviors.dtsi>
+
+/ {
+    behaviors {
+        /* Generic hold-tap you can reuse anywhere:
+         * tap => &kp <tapKey>
+         * hold (long-press) => &kp <holdKey>
+         *
+         * Flavor is “tap-preferred” so normal tapping never surprises you.
+         * Adjust tapping-term-ms and quick-tap-ms to taste.
+         */
+        lp: long_press_to_key {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LP";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <175>;
+            bindings = <&kp>, <&kp>;
+        };
+
+        /* Classic home-row style mod-tap tweaks (optional) */
+        &mt {
+            flavor = "balanced";
+            quick-tap-ms = <150>;
+        };
+    };
+};
+;
