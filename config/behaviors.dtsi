@@ -1,28 +1,33 @@
 // Custom behaviors for Sofle Eyelash
-// - Long-press helper (tap = key1, hold = key2)
+// Long-press (hold-tap) behavior
 
 #include <dt-bindings/zmk/keys.h>
 
- / {
-     behaviors {
-         /* Generic long-press (hold-tap) behavior.
-          * Use as:  &lp <HOLD_key> <TAP_key>
-          * Example: &lp ESC GRAVE  => tap ` , hold = Esc
-          */
-         lp: long_press_to_key {
-             compatible = "zmk,behavior-hold-tap";
-             label = "LP";
-             #binding-cells = <2>;
-             flavor = "tap-preferred";
-             tapping-term-ms = <200>;
-             quick-tap-ms = <175>;
-             bindings = <&kp>, <&kp>;
-         };
+/ {
+    behaviors {
+        /* Generic long-press (hold-tap) behavior.
+         * Use: &lp <HOLD_key> <TAP_key>
+         * Ex:  &lp ESC GRAVE  → tap ` , hold Esc
+         */
+        lp: long_press_to_key {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LP";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <175>;
+            bindings = <&kp>, <&kp>;
+        };
 
-         /* Optional: global tweaks for built-in mod-tap (&mt) */
-         &mt {
-             flavor = "balanced";
-             quick-tap-ms = <150>;
-         };
-     };
- };
+        /* Optional tweak for built-in mod-tap (&mt) */
+        mt_modtap: mod_tap_override {
+            compatible = "zmk,behavior-hold-tap";
+            label = "MT_OVERRIDE";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <180>;
+            quick-tap-ms = <150>;
+            bindings = <&kp>, <&kp>;
+        };
+    };
+};

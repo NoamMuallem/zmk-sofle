@@ -1,26 +1,21 @@
-// Two-keys-at-once (combos)
+// Two-keys-at-once (combos) for Sofle Eyelash
 
 #include <dt-bindings/zmk/keys.h>
 
- / {
-     combos {
-         compatible = "zmk,combos";
+/ {
+    combos {
+        compatible = "zmk,combos";
+        combo-term-ms = <35>;
 
-         /* How tight the simultaneity window is (tune to taste) */
-         combo-term-ms = <35>;
-
-         /* TAB + GRAVE => ESC (only on base layer)
-          *
-          * IMPORTANT: combos use *key positions*, not keycodes.
-          * In the keymap below, GRAVE is position 0 and TAB is position 6,
-          * so we set <6 0>. If Esc doesn't trigger, your matrix may number
-          * differently — swap these to your actual positions.
-          */
-         esc_from_tab_grave {
-             key-positions = < 6 0 >;   /* TAB, GRAVE */
-             bindings = <&kp ESC>;
-             layers = <0>;              /* base layer only */
-             timeout-ms = <35>;
-         };
-     };
- };
+        /* TAB + GRAVE → ESC  (on base layer)
+         * key-positions use matrix order (left-to-right, top-to-bottom)
+         * Adjust numbers if needed after testing.
+         */
+        esc_from_tab_grave {
+            key-positions = <6 0>;
+            bindings = <&kp ESC>;
+            layers = <0>;
+            timeout-ms = <35>;
+        };
+    };
+};
