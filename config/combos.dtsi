@@ -11,7 +11,7 @@
          * Replace <TAB_POS GRAVE_POS> with your actual numbers (see Step 3).
          */
         esc_from_tab_grave {
-            key-positions = < TAB_POS GRAVE_POS >;
+            key-positions = <6 0>;
             bindings = <&kp ESC>;
             layers = <0>;
             timeout-ms = <35>;
