@@ -1,5 +1,4 @@
-// Two-keys-at-once (combos) for Sofle Eyelash
-
+// Two-keys-at-once (combos)
 #include <dt-bindings/zmk/keys.h>
 
 / {
@@ -7,12 +6,12 @@
         compatible = "zmk,combos";
         combo-term-ms = <35>;
 
-        /* TAB + GRAVE → ESC  (on base layer)
-         * key-positions use matrix order (left-to-right, top-to-bottom)
-         * Adjust numbers if needed after testing.
+        /* TAB + GRAVE -> ESC  (base layer)
+         * IMPORTANT: positions are matrix positions (NOT keycodes).
+         * Replace <TAB_POS GRAVE_POS> with your actual numbers (see Step 3).
          */
         esc_from_tab_grave {
-            key-positions = <6 0>;
+            key-positions = < TAB_POS GRAVE_POS >;
             bindings = <&kp ESC>;
             layers = <0>;
             timeout-ms = <35>;
