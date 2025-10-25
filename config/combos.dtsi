@@ -1,22 +1,26 @@
-/ {
-    combos {
-        compatible = "zmk,combos";
-        /* Tuning you’ll likely like for combos */
-        combo-term-ms = <35>;        /* how tight the simultaneity window is */
-        /* require-prior-idle-ms = <1>;  uncomment if you want to disable combos
-           right after you’ve typed something else very fast */
+// Two-keys-at-once (combos)
 
-        /* Example requested earlier:
-           Tab + ` (grave/tilde) => Esc (on base layer only)
-           NOTE: combos use key POSITIONS, not keycodes. Update the positions
-           after we drop in the keymap (see comment there).
-        */
-        esc_from_tab_grave {
-            key-positions = < 7 0 >;   // EXAMPLE: update with your actual two positions
-            bindings = <&kp ESC>;
-            layers = <L_BASE>;
-            timeout-ms = <35>;
-        }
+#include <dt-bindings/zmk/keys.h>
 
-    };
-};
+ / {
+     combos {
+         compatible = "zmk,combos";
+
+         /* How tight the simultaneity window is (tune to taste) */
+         combo-term-ms = <35>;
+
+         /* TAB + GRAVE => ESC (only on base layer)
+          *
+          * IMPORTANT: combos use *key positions*, not keycodes.
+          * In the keymap below, GRAVE is position 0 and TAB is position 6,
+          * so we set <6 0>. If Esc doesn't trigger, your matrix may number
+          * differently — swap these to your actual positions.
+          */
+         esc_from_tab_grave {
+             key-positions = < 6 0 >;   /* TAB, GRAVE */
+             bindings = <&kp ESC>;
+             layers = <0>;              /* base layer only */
+             timeout-ms = <35>;
+         };
+     };
+ };

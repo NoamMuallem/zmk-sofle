@@ -10,6 +10,25 @@
 #define L_EXTRA  2
 // you can add LAYER3/LAYER4 later
 
+// Sofle Eyelash keymap
+//
+// Layers:
+//  - LAYER0: base QWERTY (with long-press on ` -> Esc)
+//  - layer1: function/navigation
+//  - layer2: extra F-keys/symbols
+//
+// Notes:
+//  * We include our custom behaviors and combos.
+//  * The very first key on the left is &lp ESC GRAVE  (tap `, hold Esc).
+
+#include <dt-bindings/zmk/keys.h>
+#include "behaviors.dtsi"
+#include "combos.dtsi"
+
+#define L_BASE   0
+#define L_FN     1
+#define L_EXTRA  2
+
 / {
     keymap {
         compatible = "zmk,keymap";
@@ -17,71 +36,68 @@
         /* ---------- LAYER 0 (default) ---------- */
         default_layer {
             bindings = <
-                // Left half, top row (from your screenshot:  ` 1 2 3 4 5 )
-                &lp ESC GRAVE   &kp N1  &kp N2  &kp N3  &kp N4  &kp N5
-                // Left half, row 2: (Tab Q W E R T)
-                &kp TAB     &kp Q   &kp W   &kp E   &kp R   &kp T
-                // Left half, row 3: (Caps A S D F G)
-                &kp CAPS    &kp A   &kp S   &kp D   &kp F   &kp G
-                // Left half, row 4: (Shift Z X C V B)
-                &kp LSHFT   &kp Z   &kp X   &kp C   &kp V   &kp B
+                // LEFT half — row 1 (top, thumb side -> outer)
+                &lp ESC GRAVE   &kp N1     &kp N2     &kp N3     &kp N4     &kp N5
+                // LEFT half — row 2
+                &kp TAB         &kp Q      &kp W      &kp E      &kp R      &kp T
+                // LEFT half — row 3
+                &kp CAPS        &kp A      &kp S      &kp D      &kp F      &kp G
+                // LEFT half — row 4
+                &kp LSHFT       &kp Z      &kp X      &kp C      &kp V      &kp B
 
-                // Right half, top row: (6 7 8 9 0 -)
-                &kp N6  &kp N7  &kp N8  &kp N9  &kp N0  &kp MINUS
-                // Right half, row 2: (Y U I O P =)
-                &kp Y   &kp U   &kp I   &kp O   &kp P   &kp EQUAL
-                // Right half, row 3: (H J K L ; [)
-                &kp H   &kp J   &kp K   &kp L   &kp SEMI &kp LBKT
-                // Right half, row 4: (N M , . / ])
-                &kp N   &kp M   &kp COMMA &kp DOT  &kp SLASH &kp RBKT
+                // RIGHT half — row 1
+                &kp N6     &kp N7     &kp N8     &kp N9     &kp N0     &kp MINUS
+                // RIGHT half — row 2
+                &kp Y      &kp U      &kp I      &kp O      &kp P      &kp EQUAL
+                // RIGHT half — row 3
+                &kp H      &kp J      &kp K      &kp L      &kp SEMI   &kp LBKT
+                // RIGHT half — row 4
+                &kp N      &kp M      &kp COMMA  &kp DOT    &kp SLASH  &kp RBKT
 
-                // Thumb cluster (approx mapping from your photos)
-                // Left: Ctrl, Alt, GUI, (Ret)
-                &kp LCTRL  &kp LALT  &kp LGUI  &kp ENTER
-                // Right: (Ret), BkSp, Space, (arrow cluster in center handled below)
-                &kp ENTER  &kp BSPC  &kp SPACE  &none
+                // THUMBS (approximate; adjust if you prefer)
+                // Left thumbs: Ctrl, Alt, GUI, Enter
+                &kp LCTRL  &kp LALT   &kp LGUI   &kp ENTER
+                // Right thumbs: Enter, Backspace, Space, (unused)
+                &kp ENTER  &kp BSPC   &kp SPACE  &none
 
-                // Center cluster (your arrow diamond and Return)
-                // If your PCB indexes these differently, just swap these around.
+                // CENTER CLUSTER (arrow diamond with a Return in the middle)
                 &kp UP
-                &kp LEFT   &kp ENTER   &kp RIGHT
+                &kp LEFT   &kp ENTER  &kp RIGHT
                 &kp DOWN
             >;
 
-            // Quick access to function layer while held by SPACE (example)
-            // Space on tap, Fn (layer1) while held:
-            // replace the SPACE binding above with this if you like:
+            // Example optional: make SPACE act as Fn when held
+            // (uncomment the next line and replace the SPACE above with &lt)
             // &lt L_FN SPACE
         };
 
         /* ---------- LAYER 1 (FN / Nav / F-keys) ---------- */
         layer1 {
             bindings = <
-                // Left half F1..F6 (roughly matching your screenshot)
+                // LEFT
                 &kp F1   &kp F2   &kp F3   &kp F4   &kp F5   &kp F6
-                // navigation and blanks on left (adjust as you prefer)
                 &none    &none    &none    &none    &none    &none
                 &none    &none    &none    &none    &none    &none
                 &none    &none    &none    &none    &none    &none
 
-                // Right half F7..F12 and nav/home/end/pg
+                // RIGHT
                 &kp F7   &kp F8   &kp F9   &kp F10  &kp F11  &kp F12
                 &kp PG_UP &kp HOME &kp UP   &kp END  &kp BSPC &kp MINUS
                 &kp PG_DN &kp LEFT &kp DOWN &kp RIGHT &none   &kp EQUAL
-                &none     &none    &none    &none    &kp LBKT &kp RBKT
+                &none     &none    &none    &none     &kp LBKT &kp RBKT
 
-                // Thumbs layer 1 (Esc on left thumb per your screenshot)
+                // THUMBS
                 &kp ESC   &none    &none    &none
                 &none     &none    &none    &none
 
-                // Center cluster empty on this layer (or duplicate arrows)
+                // CENTER
                 &kp UP
                 &kp LEFT  &kp ENTER &kp RIGHT
                 &kp DOWN
             >;
         };
 
-        /* ---------- LAYER 2 (extra F-keys / symbols) ---------- */
+        /* ---------- LAYER 2 (EXTRA) ---------- */
         layer2 {
             bindings = <
                 &none &none &none &none &none &none
